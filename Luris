@@ -1,0 +1,57 @@
+local LurisForge = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Status = Instance.new("TextLabel")
+local Glow = Instance.new("ImageLabel")
+
+LurisForge.Name = "LurisHub_v1"
+LurisForge.Parent = game:GetService("CoreGui")
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = LurisForge
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 20)
+MainFrame.BorderSizePixel = 0
+MainFrame.Position = UDim2.new(0.05, 0, 0.4, 0)
+MainFrame.Size = UDim2.new(0, 220, 0, 100)
+MainFrame.ClipsDescendants = true
+
+Title.Parent = MainFrame
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Text = "LURIS // FORGE"
+Title.TextColor3 = Color3.fromRGB(0, 255, 255)
+Title.TextSize = 18
+Title.Font = Enum.Font.Code
+Title.BackgroundTransparency = 1
+
+Status.Parent = MainFrame
+Status.Position = UDim2.new(0, 0, 0.5, 0)
+Status.Size = UDim2.new(1, 0, 0, 30)
+Status.Text = "SYSTEM: ACTIVE"
+Status.TextColor3 = Color3.fromRGB(255, 20, 147)
+Status.TextSize = 14
+Status.Font = Enum.Font.Code
+Status.BackgroundTransparency = 1
+
+Glow.Parent = MainFrame
+Glow.BackgroundTransparency = 1
+Glow.Image = "rbxassetid://1316045217"
+Glow.ImageColor3 = Color3.fromRGB(0, 255, 255)
+Glow.Position = UDim2.new(0, -50, 0, -50)
+Glow.Size = UDim2.new(1, 100, 1, 100)
+Glow.ZIndex = 0
+
+local TS = game:GetService("TweenService")
+local info = TweenInfo.new(1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+TS:Create(Status, info, {TextTransparency = 0.5}):Play()
+TS:Create(Glow, info, {ImageColor3 = Color3.fromRGB(255, 20, 147)}):Play()
+
+local VirtualUser = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+    Status.Text = "RE-SYNCING..."
+    wait(1)
+    Status.Text = "SYSTEM: ACTIVE"
+end)
+
+print("Luris Forge: Anti-AFK Initialized.")
